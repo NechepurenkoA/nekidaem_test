@@ -5,7 +5,7 @@ from blogs.models import Blog
 
 
 def create_blog(sender, instance, created, **kwargs):
-    """Create ModelB for every new ModelA."""
+    """Создание блога при создании пользователя."""
     if created:
         Blog.objects.create(user=instance)
 

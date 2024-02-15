@@ -10,7 +10,7 @@ class Blog(models.Model):
         related_name="author",
     )
     followers = models.ManyToManyField(
-        User, verbose_name="Подписчики", related_name="followers_list"
+        User, verbose_name="Подписчики", related_name="following_list"
     )
 
 
@@ -21,7 +21,7 @@ class Post(models.Model):
     title = models.CharField(max_length=140)
     text = models.TextField(max_length=140)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_read = models.BooleanField(default=False)
+    is_read = models.ManyToManyField(User, through="PostRead")
 
     class Meta:
         verbose_name = "Пост"
@@ -29,3 +29,11 @@ class Post(models.Model):
         ordering = [
             "created_at",
         ]
+
+
+class PostRead(models.Model):
+    """Пометка прочитанным."""
+
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    flag = models.BooleanField(default=False)
