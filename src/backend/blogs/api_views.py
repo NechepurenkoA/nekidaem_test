@@ -1,7 +1,7 @@
 from rest_framework import mixins, viewsets
 
 from blogs.models import BlogFollow, Post, PostRead
-from blogs.pagination import LimitOffsetPaginationForPosts
+from blogs.pagination import PageNumberPaginationForPosts
 from blogs.permissions import IsAuthenticatedOrAdminForUsers
 from blogs.serializers import PostSerializer
 
@@ -14,7 +14,7 @@ class PostViewSet(
 ):
     permission_classes = (IsAuthenticatedOrAdminForUsers,)
     serializer_class = PostSerializer
-    pagination_class = LimitOffsetPaginationForPosts
+    pagination_class = PageNumberPaginationForPosts
 
     def get_queryset(self):
         queryset = Post.objects.filter(
