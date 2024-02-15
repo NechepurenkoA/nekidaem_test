@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "users.apps.UsersConfig",
-    "blogs.apps.BlogsConfig"
+    "blogs.apps.BlogsConfig",
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "testovoe.wsgi.application"
 
-DATABASES = {
+USE_SQLITE = os.getenv("USE_SQLITE", default="True") == "True"
+
+if USE_SQLITE:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+else:
+    DATABASES = {
         "default": {
             "ENGINE": os.getenv("DB_ENGINE"),
             "NAME": os.getenv("DB_NAME"),
@@ -64,7 +74,7 @@ DATABASES = {
             "HOST": os.getenv("DB_HOST"),
             "PORT": os.getenv("DB_PORT"),
         }
-}
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
