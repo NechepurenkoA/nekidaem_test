@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "web-social-network"
+version = "0.1.0"
+description = ""
+authors = ["NechepurenkoA <nechepurenko.work@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.1"
+gunicorn = "^21.2.0"
+python-dotenv = "^1.0.0"
+djangorestframework = "^3.14.0"
+django-filter = "^23.5"
+pillow = "^10.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.0.0"
+isort = "^5.13.2"
+pre-commit = "^3.6.0"
+black = "^23.12.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+skip_glob = ["**/migrations/*.py"]
+src_paths = ["src/backend"]
