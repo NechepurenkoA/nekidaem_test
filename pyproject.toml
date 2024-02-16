@@ -20,6 +20,7 @@ flake8 = "^7.0.0"
 isort = "^5.13.2"
 pre-commit = "^3.6.0"
 black = "^23.12.1"
+pytest-django = "^4.8.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -29,3 +30,10 @@ build-backend = "poetry.core.masonry.api"
 profile = "black"
 skip_glob = ["**/migrations/*.py"]
 src_paths = ["src/backend"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "testovoe.settings"
+pythonpath = ". src/backend/"
+testpaths = [
+    "tests",
+]
