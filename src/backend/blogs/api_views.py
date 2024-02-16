@@ -58,6 +58,7 @@ class PostViewSet(
         )
         read_flags = PostRead.objects.filter(
             user_id=self.request.user.id,
+            flag=True,
         ).values_list("id", flat=True)
         return queryset.exclude(is_read__in=read_flags)
 
