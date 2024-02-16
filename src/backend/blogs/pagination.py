@@ -4,5 +4,7 @@ from blogs.constants import DEFAULT_PAGINATION_PAGE_SIZE, MAX_PAGINATION_PAGE_SI
 
 
 class PageNumberPaginationForPosts(PageNumberPagination):
+    """Пагинатор для пагинации постов."""
+
     page_size = DEFAULT_PAGINATION_PAGE_SIZE
     max_page_size = MAX_PAGINATION_PAGE_SIZE
