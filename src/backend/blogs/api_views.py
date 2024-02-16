@@ -23,6 +23,8 @@ class PostViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
+    """Вьюсет постов, новостной ленты."""
+
     permission_classes = (IsAuthenticatedOrAdminForUsers,)
     serializer_class = PostSerializer
     pagination_class = PageNumberPaginationForPosts
@@ -37,6 +39,7 @@ class PostViewSet(
         detail=True,
     )
     def send_to_read(self, request, pk):
+        """Отправление в прочитанные."""
         serializer = SendToReadSerializer(
             data={"post_id": pk}, context=self.get_serializer_context()
         )
@@ -50,22 +53,28 @@ class PostViewSet(
             status=status.HTTP_201_CREATED,
         )
 
+    # TODO Здесь есть, когда помечен всего один пост, он все равно возвращает его
     def get_queryset(self):
         queryset = Post.objects.filter(
             blog_id__in=BlogFollow.objects.filter(
                 user_id=self.request.user.id,
             ).values_list("blog_id", flat=True),
         )
-        read_flags = PostRead.objects.filter(
-            user_id=self.request.user.id,
-            flag=True,
-        ).values_list("id", flat=True)
+        read_flags = list(
+            PostRead.objects.filter(
+                user_id=self.request.user.id,
+                flag=True,
+            ).values_list("id", flat=True)
+        )
+        print(read_flags)
         return queryset.exclude(is_read__in=read_flags)
 
 
 class BlogViewSet(
     viewsets.GenericViewSet,
 ):
+    """Вьюсет блога."""
+
     permission_classes = [
         permissions.IsAuthenticated,
     ]
@@ -77,6 +86,7 @@ class BlogViewSet(
         url_path="follow",
     )
     def follow_blog(self, request, pk):
+        """Подписка на блог."""
         serializer = FollowBlogSerializer(
             data={"blog_id": pk}, context=self.get_serializer_context()
         )
@@ -96,6 +106,7 @@ class BlogViewSet(
         url_path="unfollow",
     )
     def unfollow_blog(self, request, pk):
+        """Отписка от блога."""
         serializer = FollowBlogSerializer(
             data={"blog_id": pk}, context=self.get_serializer_context()
         )

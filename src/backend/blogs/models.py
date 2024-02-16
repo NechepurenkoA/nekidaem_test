@@ -4,6 +4,8 @@ from users.models import User
 
 
 class Blog(models.Model):
+    """Модель блога."""
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -26,6 +28,8 @@ class Blog(models.Model):
 
 
 class BlogFollow(models.Model):
+    """Модель связи между блогом и юзером."""
+
     user = models.ForeignKey(User, related_name="followers", on_delete=models.CASCADE)
     blog = models.ForeignKey(Blog, related_name="following", on_delete=models.CASCADE)
 
@@ -38,6 +42,8 @@ class BlogFollow(models.Model):
 
 
 class Post(models.Model):
+    """Модель поста."""
+
     blog = models.ForeignKey(
         Blog, verbose_name="Блоги", related_name="posts", on_delete=models.CASCADE
     )
@@ -53,12 +59,12 @@ class Post(models.Model):
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
         ordering = [
-            "created_at",
+            "-created_at",
         ]
 
 
 class PostRead(models.Model):
-    """Пометка прочитанным."""
+    """Модель связи пометки прочитанного поста."""
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
