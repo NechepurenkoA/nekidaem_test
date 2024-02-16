@@ -25,6 +25,16 @@ https://wiki.nekidaem.ru/s/test-rest-api-python
 | `infra`       | Файлы для запуска с помощью Docker, настройки Nginx     |
 | `src/backend` | Код Django приложения                                   |
 
+## Доступные "ручки"
+| Route                                     | Method   | Описание                      |
+|-------------------------------------------|----------|-------------------------------|
+| `{HOST}/obtain-token/`                    | `POST`   | Получение токена пользователя |
+| `{HOST}/blogs/<blog_id:int>/follow/`      | `POST`   | Подписка на блог              |
+| `{HOST}/blogs/<blog_id:int>/unfollow/`    | `DELETE` | Отписка от блога              |
+| `{HOST}/news/`                            | `GET`    | Новостная лента               |
+| `{HOST}/news/`                            | `POST`   | Сделать пост                  |
+| `{HOST}/news/<post_id:int>/`              | `DELETE` | Удалить пост                  |
+| `{HOST}/news/<post_id:int>/send_to_read/` | `POST`   | Отправить в "прочтенные"      |
 
 # Подготовка
 
