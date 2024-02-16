@@ -11,6 +11,7 @@
 [![DRF][DRF-badge]][DRF-url]
 [![Postgres][Postgres-badge]][Postgres-url]
 [![Nginx][Nginx-badge]][Nginx-url]
+[![Docker][Docker-badge]][Docker-url]
 
 ## Задание
 
@@ -76,8 +77,8 @@ https://wiki.nekidaem.ru/s/test-rest-api-python
    ```
 
 # Разворачиваем проект в контейнерах
-Создаём `.env` файл в корневой директории проекта и заполняем его по
-образцу `.env.example` и скопируйте его в папку `infra`
+Создаём `.env` файл в папке `infra` и заполняем его по
+образцу `.env.example`.
 
 Переходим в директорию `infra/`
 
@@ -117,12 +118,6 @@ cd src/backend/
 python manage.py migrate
 ```
 
-Загружаем фикстуры (локации)
-
-```shell
-python manage.py import_locations
-```
-
 Запускаем *development*-сервер *Django*
 
 ```shell
@@ -151,3 +146,7 @@ python manage.py runserver
 [Nginx-url]: https://nginx.org
 
 [Nginx-badge]: https://img.shields.io/badge/nginx-009900?style=for-the-badge&logo=nginx&logoColor=white
+
+[Docker-url]: https://www.docker.com/
+
+[Docker-badge]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
